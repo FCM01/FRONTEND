@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div class="navbar">
+        <header>
+          <div>
+            <h2 class="active">{{ username }}</h2>
+          </div>
+        </header>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <h1>HERMES</h1>
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a (click)="showMakeUser()" class="underlineHover"
+              >Make new group chat</a
+            >
+            <div *ngIf="show_mu">
+              <h2>Give A Group Name</h2>
+              <br>
+              <input
+                #groupname
+                type="text"
+                id="login"
+                placeholder="Group Name"
+              />
+              <br>
+              <span *ngIf="error != ''" class="alert">{{error}}</span>
+              <br>
+              <div *ngFor="let i  of groupMemberaray">
+                <h2 class="active">{{i}}</h2>
+              </div>
+              <h2>Pick users to join</h2>
+              <ul *ngFor="let i of userList">
+                <a (click)="setName(i)">{{ i }}</a>
+              </ul>
+
+              <input
+                (click)="makeGroupChat(groupname.value)"
+                type="submit"
+                value="CREATE"
+              />
+            </div>
+          </div>
+        </div>
+        <nav>
+          <ul>
+            <li><a (click)="logOut()">Log Out </a></li>
+          </ul>
+        </nav>
+      </div>
+
+   
+    <div class="wrapper fadeInDown">
+      <div id="formContent"*ngIf="show_inchat != true" >
+        <h2 class="alert info">Refresh to see your new chats</h2>
+        <input (click)="refresh()" type="submit" value="refresh" />
+      </div>
+        <div id="formContent">
+          <div *ngIf="show_dash" class="wrapper fadeInDown">
+            <div id="formContent">
+              <div>
+                <h2 class="active">CHATS</h2>
+              </div>
+             
+              <h1>Groups</h1>
+              <div *ngIf="groupList.length == 0">
+                <h2>You dont have any groups</h2>
+              </div>
+              <div id="formFooter" *ngFor="let i of groupList">
+                <div class="navbar">
+                  <div class="dropdown">
+                    <button class="dropbtn">
+                      <a>{{ i }}</a>
+                      <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <input (click)="joinChat(i)" type="submit" value="JOIN" />
+                      <input (click)="deleteGroupChat(i)" type="submit" value="DELETE" />
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+
+              <h1>Chats</h1>
+              <div *ngIf="chatList.length == 0">
+                <h2>You dont have any chats</h2>
+              </div>
+              <div id="formFooter" *ngFor="let i of chatList">
+                <div class="navbar">
+                  <div class="dropdown">
+                    <button class="dropbtn">
+                      <a>{{ i["user"] }}</a>
+                      <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <input
+                        (click)="joinIndividualChat(i)"
+                        type="submit"
+                        value="JOIN"
+                      />
+                      <input
+                        (click)="deletChat(i)"
+                        type="submit"
+                        value="DELETE"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <br />
+
+              <div id="formFooter">
+                <a  class="underlineHover" (click)="showContacts()">Contacts</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="wrapper fadeInDown" *ngIf="show_contacts">
+            <div id="formContent">
+              <input (click)="back()" type="submit" value="BACK" />
+              <br />
+              <h1>Contacts</h1>
+              <div id="formFooter" *ngFor="let i of userList">
+                <div class="navbar">
+                  <div class="dropdown">
+                    <button class="dropbtn">
+                      <a>{{ i }}</a>
+                      <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <input
+                        (click)="createSingleChat(i)"
+                        type="submit"
+                        value="CHAT"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <input (click)="back()" type="submit" value="BACK" />
+            </div>
+          </div>
+        </div>
+        <div id="formContent" *ngIf="show_inchat">
+          <br />
+          <h2>{{ room_name }}</h2>
+          <ul *ngFor="let m of messageArray">
+            <div class="message_buble">
+              <h2>{{ m.user }}</h2>
+              <h2 class="active">{{ m.message }}</h2>
+            </div>
+          </ul>
+          <br />
+          <h2>Type you message here</h2>
+          <input #message type="text" />
+          <input
+            (click)="sendMessage(message.value)"
+            type="submit"
+            value="Send"
+          />
+          <input (click)="leave()" type="submit" value="LEAVE" />
+        </div>
+      </div>
+</body>
+</html>

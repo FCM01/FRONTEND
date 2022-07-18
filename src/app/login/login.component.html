@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div *ngIf="wait">
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        
+             <div *ngIf ="wait" class="preload">
+              <div class="logo">
+                  <span style="color: #050708;">HERMES</span>   
+              </div>
+              <div  class="loader-frame">
+                  <div class="loader1" id="loader1"></div>
+                  <div class="loader2" id="loader2"></div>
+              </div>
+             </div>
+      </div>
+  </div>
+
+  <footer>
+      <p>All rights reserved. @HERMES 2022</p>
+  </footer>
+  </div>
+
+    <div *ngIf="wait == false" >
+        <div *ngIf="show_signup ==false">
+          <div class="wrapper fadeInDown">
+            <div id="formContent">
+        
+              <h2 class="active" (click)= "HideSignup()">Login</h2>
+              <h2 class="inactive underlineHover" (click)="ShowSignup()">Sign Up </h2>
+              <aside>
+                <img src="./assets/images/hermes.png">
+              </aside>
+          
+              <form [formGroup]="loginForm" (ngSubmit)="Login(loginForm.value)">
+                <input type="text" id="login" formControlName="user_name" class="fadeIn second"  placeholder="Username">
+                <div class="alert" *ngIf="!loginForm.controls['user_name'].valid && loginForm.controls['user_name'].touched">
+                  <span>{{titleAlert1}} </span>
+                </div>
+                <input type="password" id="password" formControlName="password" class="fadeIn third"  placeholder="Password">
+                <div class="alert" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+                  <span>{{titleAlert1}} </span>
+                
+                </div>
+                <div *ngIf= "error_message != '' ">
+                  <span class="alert">{{error_message}} </span>
+                </div>
+                <input [disabled]="!loginForm.valid" type="submit" class="fadeIn fourth" value="Log In">
+              </form>                    
+            </div>
+          </div>
+        </div>
+    
+        <div *ngIf="show_signup">
+          <div class="wrapper fadeInDown">
+            <div id="formContent">
+      
+              <h2 class="inactive underlineHover"(click)= "HideSignup()" >Login</h2>
+              <h2 class="active" (click)="ShowSignup()">Sign Up </h2>
+              <aside>
+                <img src="./assets/images/hermes.png" >
+              </aside>
+          
+            
+              <form [formGroup]="signupForm" (ngSubmit)="Sign_up(signupForm.value)">
+                <input type="text" id="login" formControlName="user_name" class="fadeIn second"  placeholder="Username">
+                <div class="alert" *ngIf="!signupForm.controls['user_name'].valid && signupForm.controls['user_name'].touched">
+                  <span>{{titleAlert1}} </span>
+                </div>
+                <input type="email" id="email" formControlName="email" class="fadeIn third"  placeholder="Email">
+                <div class="alert" *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].touched">
+                  <span>{{titleAlert1}} </span>
+                </div>
+                <input type="password" id="password" formControlName="password" class="fadeIn third"  placeholder="Password">
+                <div class="alert" *ngIf="!signupForm.controls['password'].valid && signupForm.controls['password'].touched">
+                  <span>{{titleAlert1}} </span>
+                </div>
+                <input type="password" id="password_confirm" formControlName="password_confirm" class="fadeIn third"  placeholder="Confirm Password">
+                <div class="alert" *ngIf="!signupForm.controls['password_confirm'].valid && signupForm.controls['password_confirm'].touched">
+                  <span>{{titleAlert1}} </span>
+                </div>
+              
+                <div *ngIf= "error_message != '' ">
+                  <span class="alert">{{error_message}} </span>
+                </div>
+                <input [disabled]="!signupForm.valid" type="submit" class="fadeIn fourth" value="Sign up">
+              </form>
+          
+            </div>
+          </div>
+        </div>
+
+    <footer>
+      <p>All rights reserved. @HERMES 2022</p>
+    </footer>
+</div>
+
+</body>
+</html>
